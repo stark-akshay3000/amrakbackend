@@ -30,7 +30,10 @@ const PORT = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: "*",
+    origin:  [
+      "http://localhost:5173", // For local development
+      "https://splendorous-baklava-369746.netlify.app", // Deployed frontend
+    ],
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: [
       "Content-Type",
