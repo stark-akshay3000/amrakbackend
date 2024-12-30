@@ -198,8 +198,61 @@ const getOrderDetails = async (req, res) => {
     });
   }
 };
+const createCodOrder = async (req, res) => {
+  try {
+    const {
+      userId,
+      cartItems,
+      addressInfo,
+      totalAmount,
+      cartId,
+    } = req.body;
+
+    // Validate required fields
+    if (!userId || !cartItems || !addressInfo || !totalAmount || !cartId) {
+      return res.status(400).json({
+        success: false,
+        message: "Missing required fields.",
+      });
+    }
+
+    // Define default values for a COD order
+    const orderData = {
+      userId,
+      cartItems,
+      addressInfo,
+      orderStatus: "confirmed", // COD orders are generally confirmed immediately
+      paymentMethod: "cash_on_delivery",
+      paymentStatus: "pending", // Payment is pending until delivery
+      totalAmount,
+      orderDate: new Date(),
+      orderUpdateDate: new Date(),
+      paymentId: null,
+      payerId: null,
+      cartId,
+    };
+
+    // Save the order in the database
+    const newOrder = await Order.create(orderData);
+
+    // Send success response
+    return res.status(201).json({
+      success: true,
+      message: "Order created successfully for Cash on Delivery.",
+      order: newOrder,
+    });
+  } catch (error) {
+    console.error("Error creating COD order:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Failed to create the order. Please try again later.",
+    });
+  }
+};
+
 
 module.exports = {
+  createCodOrder,
   createOrder,
   capturePayment,
   getAllOrdersByUser,
