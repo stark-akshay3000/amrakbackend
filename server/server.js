@@ -32,8 +32,7 @@ app.use(
   cors({
     origin:  [
       "http://localhost:5173", // For local development
-      "https://splendorous-baklava-369746.netlify.app", // Deployed frontend
-      "https://thunderous-twilight-14e0f5.netlify.app"
+       "https://amrak.in/"
     ],
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: [
