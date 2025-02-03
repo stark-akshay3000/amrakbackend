@@ -32,7 +32,7 @@ app.use(
   cors({
     origin:  [
       "http://localhost:5173", // For local development
-       "https://amrak.in/"
+      "https://amrak.in"
     ],
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: [
